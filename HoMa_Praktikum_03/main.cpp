@@ -42,9 +42,14 @@ double testFunkDGL4(CMyVektor y, double x) // y'' = -4 * y' - 4y
 
 int main()
 {
-	//CMyVektor testvektor(1, -1, 2);
-	//C_DGLSolver malamar(testFunkDGL3);
-	//malamar.eulerVerfarhren_HOCH(testvektor, 1, 0.1, 10);
+
+
+	/*
+	//aufgabe 4 - 2
+	CMyVektor testvektor(1, -1, 2);
+	C_DGLSolver malamar(testFunkDGL3);
+	malamar.eulerVerfarhren_HOCH(testvektor, 1, 0.1, 10);
+	*/
 
 	/*
 	C_DGLSolver malamar(testFunkDGL1);
@@ -52,9 +57,10 @@ int main()
 	malamar.eulerVerfarhren(testv1, 1, 0.5, 100);
 	*/
 
+	/*
 	CMyVektor testvektor1(1, 2);
 	C_DGLSolver malamar1(testFunkDGL4);
 	malamar1.eulerVerfarhren_HOCH(testvektor1, 1, 0.1, 90);
-
+	*/
 	return 0;
 }

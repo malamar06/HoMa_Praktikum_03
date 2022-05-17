@@ -33,7 +33,7 @@ public:
 	C_DGLSolver(double (*f_DGL_nterOrdnung)(CMyVektor y, double x));
 	void eulerVerfarhren(CMyVektor y, double x, double h, int schritt);
 	void eulerVerfarhren_HOCH(CMyVektor y, double x, double h, int schritt);
-
+	void heunVerfahren(CMyVektor y, double x, double h, int schritt);
 
 
 
