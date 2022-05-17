@@ -1,6 +1,6 @@
 #include "C_DGLSolver.h"
 #include <vector>
-
+#include <assert.h>
 
 
 C_DGLSolver::C_DGLSolver (double (*f_DGL_System)(double y, double x))//hoehere ordnung weil return von eingabefunktion vektor ist
@@ -28,14 +28,24 @@ void C_DGLSolver::eulerVerfarhren_HOCH(CMyVektor y, double x, double h, int schr
 	double x_aktuel = x;
 	std::vector<std::vector<double>> database;
 	int dimension = y.get_dim();
+	assert(dimension > 1);
 	std::vector<double> transporter;
 	transporter.push_back(x);
-
 	for (int i = 0; i < dimension; i++)
 	{
 		transporter.push_back(y[i]);
 	}
 	database.push_back(transporter);//first line saved database[0]
+
+
+	std::cout << "===================== Schritt 0 =====================" << std::endl;
+	std::cout << "h = " << h << std::endl << "x = " << x << std::endl;
+	for (int i = 0; i < dimension; i++)
+	{
+		std::cout << "Y" << i << " = " << transporter[i + 1] << std::endl;
+	}	
+	
+
 
 	for (int q = 0; q < schritt; q++)//mutter schleife
 	{
@@ -43,11 +53,11 @@ void C_DGLSolver::eulerVerfarhren_HOCH(CMyVektor y, double x, double h, int schr
 		x_aktuel += h;
 		transporter.push_back(x_aktuel);
 
-		for (int i = 0; i < dimension - 1; i++)//weil letzte wert durch funktion berechnet wird.
+		for (int i = 0; i < dimension ; i++)//weil letzte wert durch funktion berechnet wird.
 		{
 			CMyVektor kuchen;
 
-			if (i < dimension -2)
+			if (i < dimension -1)
 			{
 				transporter.push_back(database[q][i + 1] + h * database[q][i + 2]);//hier ist f(x+h) = f(x) + h * f'(x)
 			}
@@ -72,9 +82,6 @@ void C_DGLSolver::eulerVerfarhren_HOCH(CMyVektor y, double x, double h, int schr
 			std::cout << "Y" << i << " = " << transporter[i + 1] << std::endl;
 		}
 
-
-
-
 	}
 }
 
@@ -96,7 +103,7 @@ void C_DGLSolver::eulerVerfarhren(CMyVektor y, double x, double h, int schritt)
 		for (int i = 0; i < schritt; i++)
 		{
 
-			std::cout << "======================= Schritt " << i << " =======================" << std::endl;
+			std::cout << "======================= Schritt " << i + 1 << " =======================" << std::endl;
 			y_neu = y_aktuel + h * funk(y_aktuel, x);
 			x += h;
 			std::cout << "X = " << x << std::endl;
