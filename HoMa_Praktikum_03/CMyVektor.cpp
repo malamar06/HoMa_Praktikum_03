@@ -1,5 +1,11 @@
 #include "CMyVektor.h"
 #include <iostream>
+
+void CMyVektor::clear()
+{
+	vektor_werte.clear();
+	dimension = 0;
+}
 CMyVektor::CMyVektor()//default constructer fur n>4, dann kann man die Werte manuel setzen
 {
 	dimension = 0;

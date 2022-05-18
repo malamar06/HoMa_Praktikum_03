@@ -23,4 +23,5 @@ public:
 	void manual_push(double werte);
 	void print();
 	void add_zu_vektor_werte(int pos, double wert);
+	void clear();
 };
