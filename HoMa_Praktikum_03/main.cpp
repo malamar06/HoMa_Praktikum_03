@@ -40,16 +40,32 @@ double testFunkDGL4(CMyVektor y, double x) // y'' = -4 * y' - 4y
 	return rErgebnis;
 }
 
+CMyVektor testFunkDGL5(CMyVektor y, double x)//Hunter, prey funktion.
+{											 //Y1' = 2Y2 - XY1;
+	assert(y.get_dim() == 2);				 //Y2' = Y1Y2 - 2X^3
+
+	CMyVektor rErgebnis;
+	double erste = 2 * y[1] - x * y[0];
+	double zweite = y[0] * y[1] - 2 * x * x * x;
+	rErgebnis.manual_push(erste);
+	rErgebnis.manual_push(zweite);
+	return rErgebnis;
+}
+
 int main()
 {
 
+	CMyVektor testvektor(0, 1);
+	testFunkDGL5(testvektor, 0).print();
+	C_DGLSolver malamar(testFunkDGL5);
+	malamar.heunVerfahren_vectorf(testvektor, 0, 0.02, 100);
 
-	
+	/*
 			//aufgabe 4 - 2
 	CMyVektor testvektor(1, -1, 2);
 	C_DGLSolver malamar(testFunkDGL3);
-	malamar.heunVerfarhren_HOCH(testvektor, 1, 0.001, 1000);
-	
+	malamar.eulerVerfarhren_HOCH(testvektor, 1, 0.0001, 10000);
+	*/
 
 	/*
 	CMyVektor testvektor(-2, 1, 1);
