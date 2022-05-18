@@ -77,9 +77,8 @@ void C_DGLSolver::eulerVerfarhren_HOCH(CMyVektor y, double x, double h, int schr
 	}
 }
 
-void C_DGLSolver::heunVerfarhren_HOCH(CMyVektor y, double x, double h, int schritt)
+void C_DGLSolver::heunVerfarhren_HOCH_Can(CMyVektor y, double x, double h, int schritt)
 {
-	std::vector<double> test_schritt;
 	double x_aktuel = x;
 	std::vector<std::vector<double>> database;
 	int dimension = y.get_dim();
@@ -91,8 +90,7 @@ void C_DGLSolver::heunVerfarhren_HOCH(CMyVektor y, double x, double h, int schri
 		transporter.push_back(y[i]);
 	}
 	database.push_back(transporter);//first line saved database[0]
-
-
+	
 	std::cout << "===================== Schritt 0 =====================" << std::endl;
 	std::cout << "h = " << h << std::endl << "x = " << x << std::endl;
 	for (int i = 0; i < dimension; i++)
@@ -100,6 +98,32 @@ void C_DGLSolver::heunVerfarhren_HOCH(CMyVektor y, double x, double h, int schri
 		std::cout << "Y" << i << " = " << transporter[i + 1] << std::endl;
 	}
 
+
+}
+
+void C_DGLSolver::heunVerfarhren_HOCH(CMyVektor y, double x, double h, int schritt)
+{
+	std::vector<double> test_schritt;
+	double x_aktuel = x;
+	std::vector<std::vector<double>> database;
+	int dimension = y.get_dim();
+	assert(dimension > 1);
+	std::vector<double> transporter;
+	transporter.push_back(x);
+
+	for (int i = 0; i < dimension; i++)
+	{
+		transporter.push_back(y[i]);
+	}
+	database.push_back(transporter);//first line saved database[0] als anker
+
+
+	std::cout << "===================== Schritt 0 =====================" << std::endl;//info
+	std::cout << "h = " << h << std::endl << "x = " << x << std::endl;
+	for (int i = 0; i < dimension; i++)
+	{
+		std::cout << "Y" << i << " = " << transporter[i + 1] << std::endl;
+	}
 
 
 	for (int q = 0; q < schritt; q++)//mutter schleife
@@ -110,7 +134,7 @@ void C_DGLSolver::heunVerfarhren_HOCH(CMyVektor y, double x, double h, int schri
 		transporter.push_back(x_aktuel);
 		
 		test_schritt.clear();
-		test_schritt.push_back(x_aktuel);
+		test_schritt.push_back(x_aktuel);//problem is whenever i add h
 
 		for (int i = 0; i < dimension; i++)//weil der letzte wert durch funktion berechnet wird.
 		{
@@ -127,7 +151,7 @@ void C_DGLSolver::heunVerfarhren_HOCH(CMyVektor y, double x, double h, int schri
 				{
 					kuchen.manual_push(database[q][j + 1]);
 				}
-
+																//33	
 				test_schritt.push_back(database[q][i + 1] + h * funkhochord(kuchen, database[q][0]));
 			}
 		}
@@ -139,7 +163,7 @@ void C_DGLSolver::heunVerfarhren_HOCH(CMyVektor y, double x, double h, int schri
 
 			if (i < dimension - 1)
 			{
-				transporter.push_back(database[q][i + 1] + h * 0.5 * (database[q][i + 2] + test_schritt[i +2]));//hier ist f(x+h) = f(x) + h * 0.5(f'(x) + f'(x+h))
+				transporter.push_back(database[q][i + 1] + h * 0.5 * (database[q][i + 2] + test_schritt[i + 2]));//hier ist f(x+h) = f(x) + h * 0.5(f'(x) + f'(xh+))
 			}
 			else
 			{
@@ -151,8 +175,8 @@ void C_DGLSolver::heunVerfarhren_HOCH(CMyVektor y, double x, double h, int schri
 				{
 					kuchen1.manual_push(test_schritt[j + 1]);
 				}
-
-				transporter.push_back(database[q][i + 1] + h * 0.5 * (funkhochord(kuchen, database[q][0] + funkhochord(kuchen1, test_schritt[0]))));
+				//here fail
+				transporter.push_back(database[q][i + 1] + h * 0.5 * (funkhochord(kuchen, database[q][0]) + funkhochord(kuchen1, test_schritt[0])));// f(x+h) = f(x) + h * 0.5(f'(x) + f'(xh+))
 			}
 		}
 		database.push_back(transporter);

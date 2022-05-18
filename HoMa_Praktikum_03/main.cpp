@@ -44,18 +44,18 @@ int main()
 {
 
 
+	
+			//aufgabe 4 - 2
+	CMyVektor testvektor(1, -1, 2);
+	C_DGLSolver malamar(testFunkDGL3);
+	malamar.heunVerfarhren_HOCH(testvektor, 1, 0.001, 1000);
+	
+
 	/*
-											//aufgabe 4 - 2
-	CMyVektor testvektor(1, -1, 2);
-	C_DGLSolver malamar(testFunkDGL3);
-	malamar.eulerVerfarhren_HOCH(testvektor, 1, 0.1, 10);
-	*/
-
-
-	CMyVektor testvektor(1, -1, 2);
-	C_DGLSolver malamar(testFunkDGL3);
+	CMyVektor testvektor(-2, 1, 1);
+	C_DGLSolver malamar(testFunkDGL2);
 	malamar.heunVerfarhren_HOCH(testvektor, 1, 0.1, 10);
-
+	*/
 
 
 	/*

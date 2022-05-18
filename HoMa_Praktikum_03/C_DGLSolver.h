@@ -35,6 +35,7 @@ public:
 	void eulerVerfarhren_HOCH(CMyVektor y, double x, double h, int schritt);
 	void heunVerfahren(CMyVektor y, double x, double h, int schritt);
 	void heunVerfarhren_HOCH(CMyVektor y, double x, double h, int schritt);
+	void heunVerfarhren_HOCH_Can(CMyVektor y, double x, double h, int schritt);
 
 
 
